@@ -6,6 +6,14 @@
  * ─────────────────────────────────────────────────────────────
  */
 
+/**
+ * Files in /public must be referenced through `asset()` so they resolve under the
+ * deploy base: '/' locally and on Vercel, '/Yash-Portfolio/' on GitHub Pages.
+ * (Written defensively because the serverless chat function also imports this file.)
+ */
+const BASE = (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/'
+export const asset = (path: string) => BASE + path.replace(/^\//, '')
+
 export const profile = {
   name: 'Yash Sharma',
   firstName: 'Yash',
@@ -20,19 +28,19 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/sharmayash11',
   linkedinLabel: 'linkedin.com/in/sharmayash11',
   /** File lives in /public. `resumeDownloadName` is the filename the browser saves it as. */
-  resume: '/Yash_resume.pdf',
+  resume: asset('/Yash_resume.pdf'),
   resumeDownloadName: 'Yash_Sharma_Resume.pdf',
   /** Portrait (in /public/images), made from IMG_20261114_035408.png by scripts/photo-assets.cjs.
    *  Same photo, trimmed to a square and compressed (the 2.4 MB original is too heavy to serve). */
   photo: {
-    webp800: '/images/yash-portrait-800.webp',
-    webp480: '/images/yash-portrait-480.webp',
-    jpg: '/images/yash-portrait-800.jpg',
-    avatar: '/images/yash-avatar.webp',
+    webp800: asset('/images/yash-portrait-800.webp'),
+    webp480: asset('/images/yash-portrait-480.webp'),
+    jpg: asset('/images/yash-portrait-800.jpg'),
+    avatar: asset('/images/yash-avatar.webp'),
     alt: 'Yash Sharma',
   },
   /** "Ask about Yash" chatbot avatar, cropped from IMG_20261114_043552.jpg. */
-  chatAvatar: '/images/chat-bot-avatar.webp',
+  chatAvatar: asset('/images/chat-bot-avatar.webp'),
   /** Rotating typewriter subtitle in the hero. */
   roles: ['Backend Engineer', 'AI/ML Engineer', 'RAG Systems Builder', 'Author'],
   pitch:
@@ -281,7 +289,7 @@ export const books: Book[] = [
     description:
       'Bridges Python fundamentals — OOP and async design — with practical AI mental models and algorithm design. Hands-on code examples and structured problem sets take readers from basic scripting to production-grade practice.',
     topics: ['Python fundamentals', 'OOP & async design', 'AI mental models', 'Algorithm design', 'Problem sets'],
-    cover: '/books/code-in-python-think-in-ai-vol-1.jpg',
+    cover: asset('/books/code-in-python-think-in-ai-vol-1.jpg'),
     link: 'https://amzn.in/d/07JYtqNm',
     linkLabel: 'Buy on Amazon',
   },

@@ -132,5 +132,7 @@ export function httpProvider(endpoint: string): ChatProvider {
   }
 }
 
-const endpoint = (import.meta.env.VITE_CHAT_ENDPOINT as string | undefined) || '/api/chat'
-export const chatProvider: ChatProvider = httpProvider(endpoint)
+const endpoint = (import.meta.env.VITE_CHAT_ENDPOINT as string | undefined) || `${import.meta.env.BASE_URL}api/chat`
+/** Static hosts (GitHub Pages) have no server, so builds there set VITE_CHAT_OFFLINE=true. */
+const offlineOnly = import.meta.env.VITE_CHAT_OFFLINE === 'true'
+export const chatProvider: ChatProvider = offlineOnly ? localProvider : httpProvider(endpoint)

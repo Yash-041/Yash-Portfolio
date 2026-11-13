@@ -84,6 +84,14 @@ The GitHub activity card (Education section) calls the public GitHub API from th
 
 ## Deploy
 
+### GitHub Pages (current setup)
+Live at **https://yash-041.github.io/Yash-Portfolio/**. `.github/workflows/deploy.yml` builds and deploys on every push to `main`.
+
+1. One-time: repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Push to `main` and watch the **Actions** tab; the site updates when the "Deploy Portfolio" run finishes.
+
+The workflow builds with `BASE_PATH=/Yash-Portfolio/` (the site lives under the repo name) and `VITE_CHAT_OFFLINE=true`. GitHub Pages only serves static files, so the AI chat can't run there and answers in offline mode. Never put `GROQ_API_KEY` in a `VITE_` variable or GitHub Pages build: it would be published in the browser bundle. For the live AI chat, deploy to Vercel or Netlify instead (below). Files in `public/` must be referenced through `asset()` from `data.ts` so they resolve under the base path.
+
 ### Vercel
 1. Push the repo to GitHub, then **Add New → Project** in Vercel and import it.
 2. Framework preset: **Vite** (build `npm run build`, output `dist`). Vercel picks up `api/chat.ts` automatically.

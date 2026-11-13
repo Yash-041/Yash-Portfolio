@@ -42,6 +42,10 @@ function devChatApi(apiKey: string | undefined, model: string | undefined): Plug
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
+    // Public path the site is served from. GitHub Pages serves this repo at
+    // https://yash-041.github.io/Yash-Portfolio/, so the deploy workflow sets
+    // BASE_PATH=/Yash-Portfolio/. Local dev (and Vercel/Netlify) use '/'.
+    base: env.BASE_PATH || '/',
     plugins: [react(), tailwindcss(), devChatApi(env.GROQ_API_KEY, env.GROQ_MODEL)],
     build: {
       target: 'es2020',

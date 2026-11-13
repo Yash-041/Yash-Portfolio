@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yash-sharma-portfolio.vercel.app/sitemap.xml
+Sitemap: https://yash-041.github.io/Yash-Portfolio/sitemap.xml
